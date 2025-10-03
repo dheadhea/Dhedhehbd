@@ -161,7 +161,7 @@ canvas#confetti{position:fixed;left:0;top:0;pointer-events:none;z-index:30}
     </div>
 
     <div class="message" id="customMessage">
-      <p><strong>Catatan:</strong> Klik "Kirim Ucapan" untuk menulis pesan yang muncul di kartu.</p>
+      <p><strong></strong> </p>
     </div>
 
     <div class="hearts" aria-hidden>
@@ -182,7 +182,7 @@ canvas#confetti{position:fixed;left:0;top:0;pointer-events:none;z-index:30}
     </div>
 
     <div class="message">
-      <p style="font-size:13px;color:var(--muted)" id="saveTip">Klik "Simpan Kartu" untuk mengunduh sebagai gambar PNG.</p>
+      <p style="font-size:13px;color:var(--muted)" id="saveTip"></p>
     </div>
 
   </aside>
@@ -387,7 +387,7 @@ canvas#confetti{position:fixed;left:0;top:0;pointer-events:none;z-index:30}
         
         document.getElementById('saveTip').textContent = 'Kartu berhasil diunduh! 🎁';
         setTimeout(() => {
-             document.getElementById('saveTip').textContent = 'Klik "Simpan Kartu" untuk mengunduh sebagai gambar PNG.';
+             document.getElementById('saveTip').textContent = '';
         }, 5000);
       });
     });
