@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Selamat Ulang Tahun, Dhea!</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <style>
+    :root{
+      --bg:#fff5fb;
+      --card:#ffffff;
+      --accent:#ff6fb5;
+      --muted:#9b8aa5;
+      --glass: rgba(255,255,255,0.6);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Poppins,system-ui,Segoe UI,Arial;color:#372b3a;background:linear-gradient(180deg,var(--bg),#fff);}/* layout */
+.wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px}
+.card{width:980px;max-width:98%;background:var(--card);border-radius:24px;box-shadow:0 20px 50px rgba(55,35,60,0.12);overflow:hidden;display:grid;grid-template-columns:1fr 420px;gap:0}
+@media (max-width:900px){.card{grid-template-columns:1fr;}}
+
+/* left */
+.hero{padding:40px;position:relative;overflow:hidden}
+.badge{display:inline-block;padding:8px 14px;background:linear-gradient(90deg,var(--accent),#ffb0d6);color:white;border-radius:999px;font-weight:600;font-size:13px}
+h1{font-size:40px;margin:18px 0 6px;line-height:1.02;color:#2e2030}
+.sub{color:var(--muted);margin-bottom:18px}
+.name{color:var(--accent);font-weight:800}
+
+/* typing message */
+.typing{background:linear-gradient(90deg,#fff0, #fff0);border-radius:12px;padding:14px;margin:18px 0;font-weight:500;display:inline-block;box-shadow:inset 0 1px 0 rgba(255,255,255,0.6)}
+
+/* buttons */
+.actions{display:flex;gap:12px;margin-top:18px}
+.btn{padding:12px 16px;border-radius:12px;font-weight:600;border:0;cursor:pointer}
+.btn.primary{background:var(--accent);color:white}
+.btn.ghost{background:transparent;border:1px solid rgba(55,35,60,0.06)}
+
+/* right */
+.side{padding:28px;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4));display:flex;flex-direction:column;align-items:center;justify-content:center}
+.avatar{width:220px;height:220px;border-radius:28px;overflow:hidden;box-shadow:0 10px 30px rgba(55,35,60,0.09);display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#fff,#fff0)}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.balloons{display:flex;gap:8px;margin-top:18px}
+.balloon{width:36px;height:56px;border-radius:20px 20px 18px 18px;transform-origin:center bottom}
+
+/* message card */
+.message{margin-top:20px;background:linear-gradient(180deg,var(--glass),rgba(255,255,255,0.4));padding:14px;border-radius:12px;text-align:center}
+.message p{margin:6px 0;color:#3a2840}
+
+/* footer */
+.footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+
+/* confetti canvas full */
+canvas#confetti{position:fixed;left:0;top:0;pointer-events:none;z-index:30}
+
+/* animated floating hearts */
+.hearts{position:absolute;right:-40px;top:-40px;pointer-events:none}
+.heart{width:40px;height:40px;margin:6px;opacity:0.85;transform-origin:center}
+
+/* small responsive tweaks */
+@media (max-width:420px){h1{font-size:28px}}
+
+/* keyframes */
+@keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+.float{animation:floaty 3.8s ease-in-out infinite}
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="wrap">
+    <div class="card" role="main">
+      <section class="hero">
+        <div class="badge">Happy Birthday</div>
+        <h1>Selamat ulang tahun, <span class="name" id="friendName">Nama Teman</span> 🎂</h1>
+        <div class="sub">Semoga hari ini penuh tawa, kue, dan mimpi yang mulai terwujud.</div><div class="typing" id="typingText">Sedang menulis pesan spesial…</div>
+
+    <div class="actions">
+      <button class="btn primary" id="playBtn">Putar Lagu & Konfeti</button>
+      <button class="btn ghost" id="wishBtn">Kirim Ucapan</button>
+      <button class="btn ghost" id="downloadBtn">Simpan Kartu (PNG)</button>
+    </div>
+
+    <div class="message" id="customMessage">
+      <p><strong>Catatan:</strong> Klik "Kirim Ucapan" untuk menulis pesan yang muncul di kartu.</p>
+    </div>
+
+    <div class="hearts" aria-hidden>
+      <svg class="heart float" viewBox="0 0 24 24" width="40" height="40"><path fill="url(#g)" d="M12 21s-8.5-6.5-9.9-9.5C.5 7.6 4 4 7.5 4c1.9 0 3.1 1.1 4.5 2.7C13.4 5.1 14.6 4 16.5 4 20 4 23.5 7.6 22 11.5 20.6 14.5 12 21 12 21z"/></svg>
+    </div>
+
+  </section>
+
+  <aside class="side">
+    <div class="avatar" id="avatarWrap">
+      <img id="avatarImg" src="Dhea.jpg" alt="Foto Teman">
+    </div>
+
+    <div class="balloons" aria-hidden>
+      <div class="balloon" style="background:linear-gradient(180deg,#ffd1e8,#ff9acb);border:2px solid rgba(255,255,255,0.6)"></div>
+      <div class="balloon" style="background:linear-gradient(180deg,#fff1c9,#ffd06b);border:2px solid rgba(255,255,255,0.6)"></div>
+      <div class="balloon" style="background:linear-gradient(180deg,#e1f7ff,#9fd6ff);border:2px solid rgba(255,255,255,0.6)"></div>
+    </div>
+
+    <div class="message">
+      <p style="font-size:13px;color:var(--muted)" id="saveTip">Klik "Simpan Kartu" untuk mengunduh sebagai gambar PNG.</p>
+    </div>
+
+  </aside>
+</div>
+
+<div class="footer">Didesain untuk Dhea — Made by: Studioofficialridho</div>
+
+  </div>  <audio id="song" preload="none">
+    <source src="" type="audio/mpeg">
+  </audio>  <script>
+    /* ---------- Config ---------- */
+    const CONFIG = {
+      friendName: 'Dhea', // ganti nama teman di sini
+      avatarURL: document.getElementById('avatarImg').src, // ganti URL foto
+      defaultMessage: 'Semoga panjang umur, sehat selalu, dan semua mimpimu tercapai!',
+      autoConfetti: false
+    };
+
+    document.getElementById('friendName').textContent = CONFIG.friendName;
+
+    /* ---------- Typing effect ---------- */
+    const typingEl = document.getElementById('typingText');
+    const messages = [
+      `Hai ${CONFIG.friendName}!`,
+      'Semoga hari ini penuh kebahagiaan di hari ulang tahunmu 🎉',
+      'Terima kasih sudah jadi teman terbaik 💖'
+    ];
+    let i=0, j=0, forward=true;
+    function typeLoop(){
+      const txt = messages[i];
+      typingEl.textContent = txt.slice(0,j);
+      if(forward){ j++; if(j>txt.length){ forward=false; setTimeout(typeLoop,1200); return }}
+      else{ j--; if(j<0){ forward=true; i=(i+1)%messages.length; j=0 }}
+      setTimeout(typeLoop,80);
+    }
+    typeLoop();
+
+    /* ---------- Confetti (canvas) ---------- */
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width = window.innerWidth;
+    let H = canvas.height = window.innerHeight;
+    window.addEventListener('resize', ()=>{ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; });
+
+    const colors = ['#ff6fb5','#ffd06b','#9fd6ff','#c7b3ff','#ffb0d6'];
+    function rand(min,max){return Math.random()*(max-min)+min}
+    const pieces = [];
+    function spawnConfetti(n=120){
+      for(let i=0;i<n;i++){
+        pieces.push({x:rand(0,W),y:rand(-H,0),r:rand(6,14),d:rand(10,30),color:colors[Math.floor(Math.random()*colors.length)],tilt:rand(-10,10),tiltSpeed:rand(0.02,0.15)})
+      }
+    }
+    function update(){
+      ctx.clearRect(0,0,W,H);
+      for(let p of pieces){
+        p.y += Math.cos(p.d)*0.7 + 1.2;
+        p.x += Math.sin(p.d/2);
+        p.tilt += p.tiltSpeed;
+        ctx.save();
+        ctx.translate(p.x,p.y);
+        ctx.rotate(p.tilt*Math.PI/180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*1.6);
+        ctx.restore();
+      }
+      // remove old
+      while(pieces.length>300) pieces.shift();
+      requestAnimationFrame(update);
+    }
+    update();
+
+    /* ---------- Button actions ---------- */
+    const song = document.getElementById('song');
+    const playBtn = document.getElementById('playBtn');
+    playBtn.addEventListener('click', ()=>{
+      // spawn confetti
+      spawnConfetti(140);
+      // try play music if src set
+      if(song.querySelector('source').src){
+        song.play().catch(()=>{});
+      } else {
+        // small bleep as fallback
+        const o=new AudioContext();
+        const o2=o.createOscillator();
+        const g=o.createGain();
+        o2.type='sine'; o2.frequency.value=880; g.gain.value=0.0015; o2.connect(g); g.connect(o.destination); o2.start(); setTimeout(()=>{o2.stop();o.close()},220);
+      }
+    });
+
+    document.getElementById('wishBtn').addEventListener('click', ()=>{
+      const text = prompt('Tulis ucapan untuk ' + CONFIG.friendName + '\n(Boleh pakai emoji):', CONFIG.defaultMessage);
+      if(text !== null){ 
+        document.getElementById('customMessage').innerHTML = `<p style="font-weight:700;">Ucapan untuk ${CONFIG.friendName}</p><p>"${escapeHtml(text)}"</p>`; 
+        spawnConfetti(80); 
+        // Setelah ucapan dikirim, kartu siap di-screenshot atau disimpan.
+      }
+    });
+
+    /* ---------- Save as image (using html2canvas) ---------- */
+    document.getElementById('downloadBtn').addEventListener('click', async ()=>{
+      if (typeof html2canvas === 'undefined') {
+        alert('Fitur Simpan Kartu memerlukan pustaka html2canvas. Mohon hapus tanda komentar pada baris <script> di bagian <head> file ini.');
+        return;
+      }
+      
+      document.getElementById('saveTip').textContent = 'Sedang membuat gambar... Tunggu sebentar.';
+      
+      const cardElement = document.querySelector('.card');
+      // Konfigurasi untuk memastikan background gradient ikut terambil
+      html2canvas(cardElement, { 
+          allowTaint: true, 
+          useCORS: true,
+          // Mengatur scale agar gambar lebih jelas
+          scale: 2 
+      }).then(canvas => {
+        // Membuat link unduhan
+        const link = document.createElement('a');
+        link.download = `HappyBirthday-${CONFIG.friendName}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        
+        document.getElementById('saveTip').textContent = 'Kartu berhasil diunduh! 🎁';
+        setTimeout(() => {
+             document.getElementById('saveTip').textContent = 'Klik "Simpan Kartu" untuk mengunduh sebagai gambar PNG.';
+        }, 5000);
+      });
+    });
+
+    /* ---------- Helpers ---------- */
+    function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+    // small floating animation for balloons and hearts
+    document.querySelectorAll('.balloon').forEach((b,i)=>{ b.style.animation = `floaty ${4+Math.random()*3}s ease-in-out ${i*0.2}s infinite`; });
+    document.querySelectorAll('.heart').forEach((h,i)=>{ h.style.animationDuration = `${3+Math.random()*2}s`; h.style.transformOrigin='center'; });
+
+    // allow quick customization via prompt
+    (function quickCustomize(){
+      const params = new URLSearchParams(location.search);
+      if(params.get('name')){ CONFIG.friendName = params.get('name'); document.getElementById('friendName').textContent = CONFIG.friendName; }
+      if(params.get('img')){ document.getElementById('avatarImg').src = params.get('img'); }
+    })();
+
+    // optional: auto spawn confetti on load if configured
+    if(CONFIG.autoConfetti){ spawnConfetti(90); }
+  </script>
+</body>
+</html>
