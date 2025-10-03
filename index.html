@@ -54,6 +54,18 @@ h1{font-size:40px;margin:18px 0 6px;line-height:1.02;color:#2e2030}
 
 /* footer */
 .footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+.footer a {
+  color: var(--muted); /* Samakan warna teks dengan sekitarnya */
+  text-decoration: underline;
+  text-decoration-color: var(--accent); /* Ganti warna garis bawah jadi pink */
+  text-decoration-thickness: 2px; /* Membuat garis sedikit lebih tebal */
+  text-underline-offset: 3px; /* Memberi sedikit jarak antara teks dan garis */
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: var(--accent); /* Warna teks berubah saat disentuh kursor */
+}
 
 /* confetti canvas full */
 canvas#confetti{position:fixed;left:0;top:0;pointer-events:none;z-index:30}
@@ -176,7 +188,9 @@ canvas#confetti{position:fixed;left:0;top:0;pointer-events:none;z-index:30}
   </aside>
 </div>
 
-<div class="footer">Didesain untuk Dhea — Made by: Studioofficialridho</div>
+<div class="footer">
+  Didesain untuk Dhea - Made by: <a href="https://studioofficialridho.github.io/ratecard/">studioofficialrido</a>
+</div>
 
   </div>
   <audio id="song" preload="none">
